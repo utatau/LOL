@@ -17,4 +17,6 @@ jobs:
             cd ~/uta/apps/LOL
             git pull origin main
             git status
+            cd ../
+            mv config.json ./LOL
             pm2 restart DENSTORE
