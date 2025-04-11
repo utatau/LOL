@@ -11,7 +11,11 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
+<<<<<<< HEAD:.github/workflows/main.yml
           key: ${{ secrets.PASSWORD }}
+=======
+          key: ${{ secrets.PRIVATE_KEY }}
+>>>>>>> 064651390769f50ab28854fa644305e2e96ca874:.github/workflows/CD.yml
           port: 22
           script: |
             cd ~/uta/apps/LOL
