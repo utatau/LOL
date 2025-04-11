@@ -15,6 +15,6 @@ jobs:
           port: 22
           script: |
             cd ~/uta/apps/LOL
-            git pull origin master
+            git pull origin main
             git status
             pm2 restart DENSTORE
