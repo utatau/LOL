@@ -1,4 +1,4 @@
-const OrderCount = require('../models/orderCount'); // Import the OrderCount mode
+const OrderCount = require('../models/orderCount');
 const { ownerid } = require('../config.json');
 const { ActionRowBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
@@ -28,7 +28,7 @@ module.exports = {
         );
 
       const confirmationMessage = await message.reply({
-        content: `Are you sure you want to reset the order count?`,
+        content: `Apakah Anda yakin ingin mengatur ulang jumlah pesanan?`,
         components: [row],
       });
 
@@ -43,12 +43,12 @@ module.exports = {
         await OrderCount.findOneAndUpdate({}, { count: 0 }, { upsert: true });
 
         await buttonInteraction.update({
-          content: 'Order count has been reset to 0.',
+          content: 'Jumlah pesanan telah diatur ulang ke 0.',
           components: [],
         });
       } else if (buttonInteraction.customId === 'cancel') {
         await buttonInteraction.update({
-          content: 'Order count reset has been canceled.',
+          content: 'Pengaturan ulang jumlah pesanan telah dibatalkan.',
           components: [],
         });
       }

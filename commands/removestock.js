@@ -11,21 +11,21 @@ module.exports = {
     }
 
     if (args.length < 2) {
-      return message.reply('Please provide the product code and the quantity of stock to add.');
+      return message.reply('Harap berikan kode produk dan jumlah stok yang ingin ditambahkan');
     }
 
     const code = args[0];
     const quantityToAdd = parseInt(args[1]);
 
     if (isNaN(quantityToAdd) || quantityToAdd <= 0) {
-      return message.reply('Please provide a valid quantity greater than 0.');
+      return message.reply('harap berikan jumlah yang valid lebih besar dari 0');
     }
 
     try {
       const product = await Product.findOne({ code });
 
       if (!product) {
-        return message.reply('Product not found. Make sure to provide the correct product code.');
+        return message.reply('Produk tidak ditemukan. Pastikan untuk memberikan kode produk yang benar.');
       }
 
       product.stock -= quantityToAdd;
@@ -34,7 +34,7 @@ module.exports = {
 
       purchaseEmitter.emit('purchase');
 
-      return message.reply(`Stock Removed successfully.`);
+      return message.reply(`stok berhasil di hapus`);
     } catch (error) {
       console.error('Error:', error);
       return message.reply('Something went wrong.');

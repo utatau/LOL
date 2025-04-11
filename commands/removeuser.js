@@ -13,21 +13,21 @@ module.exports = {
     const userMention = message.mentions.users.first();
 
     if (!userMention) {
-      return message.reply('Please mention a user to remove from the database.');
+      return message.reply('tag user yang ingin data nya di hapus dari database');
     }
 
     try {
       const removedUser = await User.findOneAndRemove({ discordId: userMention.id });
 
       if (!removedUser) {
-        return message.reply('User not found in the database.');
+        return message.reply('user tidak di temukan di database');
       }
 
       return message.reply({
         embeds: [
           new EmbedBuilder()
             .setColor('#0099ff')
-            .setDescription(`Removed ${userMention.tag} from the database.`)
+            .setDescription(`menghapus ${userMention.tag} dari database.`)
         ]
       });
     } catch (error) {

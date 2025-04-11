@@ -28,7 +28,7 @@ module.exports = {
     }
 
     if (args.length < 3) {
-      return message.reply('Usage: .send <user mention> <code> <amount>');
+      return message.reply('pake: .send <user mention> <kode> <jumlah>');
     }
 
     const userMention = message.mentions.users.first();
@@ -36,26 +36,26 @@ module.exports = {
     const quantity = parseInt(args[2]);
 
     if (!userMention) {
-      return message.reply('Please provide a valid user mention.');
+      return message.reply('tag user yang valid');
     }
 
     if (isNaN(quantity) || quantity <= 0) {
-      return message.reply('Please provide a valid quantity greater than 0.');
+      return message.reply('masukan angka valid (lebih besar dari 0)');
     }
 
     try {
       const product = await Product.findOne({ code: productCode });
 
       if (!product) {
-        return message.reply('This product does not exist.');
+        return message.reply('produk tidak di temukan');
       }
 
       if (!product.variations || product.variations.length === 0) {
-        return message.reply('There are no account details available for this product.');
+        return message.reply('Tidak ada rincian akun yang tersedia untuk produk ini.');
       }
 
       if (product.stock < quantity) {
-        return message.reply(`There is not enough stock to send ${quantity} of this product.`);
+        return message.reply(`Stok tidak cukup untuk dikirim ${quantity} dari produk ini`);
       }
 
       const totalPrice = product.price * quantity;
@@ -76,8 +76,8 @@ module.exports = {
 
         const embedDM = new EmbedBuilder()
           .setColor('#0099ff')
-          .setTitle('Purchase Successful')
-          .setDescription(`You have received **${quantity} ${product.name.replace(/"/g, '')}** worth **${totalPrice} ${wlEmoji}** from **${message.author.tag}**\n\n**Don't forget to give reps.**\n`)
+          .setTitle('pembelian sukses')
+          .setDescription(`anda menerima **${quantity} ${product.name.replace(/"/g, '')}** sejumlah **${totalPrice} ${wlEmoji}** dari **${message.author.tag}**\n\n**JANGAN LUPA REPS YAK**\n`)
           .setImage(imageURL)
           .setTimestamp();
 
@@ -102,8 +102,8 @@ module.exports = {
 
         const embedDM = new EmbedBuilder()
           .setColor('#0099ff')
-          .setTitle('Purchase Successful')
-          .setDescription(`You have received **${quantity} ${product.name.replace(/"/g, '')}** worth **${totalPrice} ${wlEmoji}** from **${message.author.tag}**\n\n**Don't forget to give reps.**`)
+          .setTitle('pembelian sukses')
+          .setDescription(`anda menerima **${quantity} ${product.name.replace(/"/g, '')}** sebesar **${totalPrice} ${wlEmoji}** dari **${message.author.tag}**\n\n**JANGAN LUPA REPS YAK**`)
           .setImage(imageURL)
           .setTimestamp();
 
@@ -132,8 +132,8 @@ module.exports = {
 
         const embedDM = new EmbedBuilder()
           .setColor('#0099ff')
-          .setTitle('Purchase Successful')
-          .setDescription(`You have purchased **${quantity} ${product.name.replace(/"/g, '')}** worth **${totalPrice}${wlEmoji}**\n\n**Don't forget to give reps yak.**\n`)
+          .setTitle('pembelian sukses')
+          .setDescription(`anda telah membeli **${quantity} ${product.name.replace(/"/g, '')}** sebesar **${totalPrice}${wlEmoji}**\n\n**JANGAN LUPA REPS YAK**\n`)
           .setImage(imageURL)
           .setTimestamp();
         await message.author.send({ embeds: [embedDM], files: [fileName] });
@@ -154,8 +154,8 @@ module.exports = {
 
       const purchaseLogEmbed = new EmbedBuilder()
         .setColor('#0099ff')
-        .setTitle(`Order Number: **${orderCount + 1}**`)
-        .setDescription(`${emoji1} Buyer: ${userMention}\n${emoji1} Sender: <@${message.author.id}>\n${emoji1} Product: **${product.name.replace(/"/g, '')}**\n${emoji1} Code: **${product.code}**\n${emoji1} Total Price: **${totalPrice}** ${wlEmoji}\n\n**Thanks For Purchasing Our Product(s)**`)
+        .setTitle(`nomor orderan: **${orderCount + 1}**`)
+        .setDescription(`${emoji1} pembeli: ${userMention}\n${emoji1} pengirim: <@${message.author.id}>\n${emoji1} produk: **${product.name.replace(/"/g, '')}**\n${emoji1} kode: **${product.code}**\n${emoji1} total harga: **${totalPrice}** ${wlEmoji}\n\n**TERIMAKASIH TELAH MEMBELI PRODUK KAMI**`)
         .setTimestamp();
 
       const logChannel = message.guild.channels.cache.get(buylogChannelId);

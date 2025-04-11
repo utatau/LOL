@@ -13,12 +13,12 @@ module.exports = {
       return message.reply('You do not have permission to use this command.');
     }
     if (args.length < 1) {
-      return message.reply('Usage: .add <code> [Upload a file or provide text]');
+      return message.reply('Cara: .add <code> [upload file atau text]');
     }
     const code = args[0];
     const product = await Product.findOne({ code });
     if (!product) {
-      return message.reply('Product not found.');
+      return message.reply('produk ga ada');
     }
     switch (product.type) {
       case 'df':
@@ -28,7 +28,7 @@ module.exports = {
       case 'no':
         return addNoTypeDetails(message, code, args.slice(1));
       default:
-        return message.reply('Invalid type. Supported types are df, yes, and no.');
+        return message.reply('hanya bisa type df, yes, and no.');
     }
   },
 };
@@ -38,7 +38,7 @@ async function addDFTypeDetails(message, code, details) {
     const product = await Product.findOne({ code });
 
     if (!product) {
-      return message.reply('Product not found.');
+      return message.reply('produk tidak ada');
     }
 
     if (message.attachments.size === 1) {
@@ -50,10 +50,10 @@ async function addDFTypeDetails(message, code, details) {
       await product.save();
       purchaseEmitter.emit('purchase');
 
-      return message.reply('Details added/updated successfully for "df" type.');
+      return message.reply('berhasil menambahkan "df"');
     } else {
       if (details.length === 0) {
-        return message.reply('Please provide text details or attach a .txt file for "df" type.');
+        return message.reply('Harap berikan rincian teks atau lampirkan file .txt untuk jenis "df".');
       }
 
       const textDetails = details.join(' ');
@@ -62,11 +62,11 @@ async function addDFTypeDetails(message, code, details) {
       await product.save();
       purchaseEmitter.emit('purchase');
 
-      return message.reply('Details added/updated successfully for "df" type.');
+      return message.reply('berhasil menambahkan untuk "df" type');
     }
   } catch (error) {
     console.error('Error:', error);
-    return message.reply('Something went wrong for "df" type.');
+    return message.reply('salah pada df type');
   }
 }
 
@@ -75,7 +75,7 @@ async function addYesTypeDetails(message, code, details) {
     const product = await Product.findOne({ code });
 
     if (!product) {
-      return message.reply('Product not found.');
+      return message.reply('produk tidak di temukan');
     }
 
     if (message.attachments.size === 1) {
@@ -87,10 +87,10 @@ async function addYesTypeDetails(message, code, details) {
       await product.save();
       purchaseEmitter.emit('purchase');
 
-      return message.reply('Details added/updated successfully for "script" type.');
+      return message.reply('berhasil menambahkan untuk "script" type');
     } else {
       if (details.length === 0) {
-        return message.reply('Please provide text details or attach a .txt file for "script" type.');
+        return message.reply('lampirkan detail berbentuk text atau .txt file untuk "script" type.');
       }
 
       const textDetails = details.join(' ');
@@ -99,11 +99,11 @@ async function addYesTypeDetails(message, code, details) {
       await product.save();
       purchaseEmitter.emit('purchase');
 
-      return message.reply('Details added/updated successfully for "script" type.');
+      return message.reply('berhasil menambahkan untuk "script" type.');
     }
   } catch (error) {
     console.error('Error:', error);
-    return message.reply('Something went wrong for "script" type.');
+    return message.reply('salah dari "script" type.');
   }
 }
 
@@ -113,7 +113,7 @@ async function addNoTypeDetails(message, code, details) {
     const product = await Product.findOne({ code });
 
     if (!product) {
-      return message.reply('Product not found.');
+      return message.reply('produk tidak di temukan');
     }
 
     if (message.attachments.size === 1) {
@@ -142,7 +142,7 @@ async function addNoTypeDetails(message, code, details) {
       await product.save();
       purchaseEmitter.emit('purchase');
 
-      return message.reply(`Added ${words.length} variations successfully for "no" type.`);
+      return message.reply(`berhasil menambahkan ${words.length} dengan "no" type.`);
     }
   } catch (error) {
     console.error('Error:', error);

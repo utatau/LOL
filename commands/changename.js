@@ -5,28 +5,28 @@ const purchaseEmitter = require('../events/purchaseEmitter');
 
 module.exports = {
   name: 'changename',
-  description: 'Change the name of a product',
+  description: 'mengganti nama produk',
   async execute(message, args) {
     if (message.author.id !== ownerid) {
       return message.reply('You do not have permission to use this command.');
     }
 
     if (args.length < 2) {
-      return message.reply('Please provide a product code and the new name.');
+      return message.reply('masukan kode produk dan nama baru untuk produk');
     }
 
     const code = args[0];
     const newName = args.slice(1).join(' ');
 
     if (!newName) {
-      return message.reply('Please provide a new name for the product.');
+      return message.reply('masukan nama baru untuk produk');
     }
 
     try {
       const product = await Product.findOne({ code });
 
       if (!product) {
-        return message.reply('This product does not exist.');
+        return message.reply('produk tidak ada');
       }
 
       product.name = newName;
@@ -38,7 +38,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor('#0099ff')
-            .setDescription(`The name of product **${code}** has been changed to **${newName}**.`)
+            .setDescription(`nama produk dari kode **${code}** di ganti menjadi **${newName}**.`)
         ]
       });
     } catch (error) {

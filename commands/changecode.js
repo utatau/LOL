@@ -14,27 +14,27 @@ module.exports = {
     }
 
     if (args.length < 2) {
-      return message.reply('Please provide the current product code and the new code.');
+      return message.reply('masukan kode saat ini dan masukan kode yang baru');
     }
 
     const currentCode = args[0];
     const newCode = args[1];
 
     if (!newCode) {
-      return message.reply('Please provide a new code for the product.');
+      return message.reply('masukan kode yang baru untuk sebuah produk');
     }
 
     try {
       const product = await Product.findOne({ code: currentCode });
 
       if (!product) {
-        return message.reply('The product with the current code does not exist.');
+        return message.reply('Produk dengan kode saat ini tidak ada.');
       }
 
       const existingProduct = await Product.findOne({ code: newCode });
 
       if (existingProduct) {
-        return message.reply('A product with the new code already exists.');
+        return message.reply('kode yang anda input sudah di gunakan');
       }
 
       product.code = newCode;
@@ -46,7 +46,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor('#0099ff')
-            .setDescription(`The code of product **${currentCode}** has been changed to **${newCode}**.`)
+            .setDescription(`kode dari produk **${currentCode}** telah di ubah menjadi **${newCode}**.`)
         ]
       });
     } catch (error) {

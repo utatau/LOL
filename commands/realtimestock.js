@@ -38,15 +38,15 @@ module.exports = {
 
         try {
           await PreviousMessageId.findOneAndUpdate({}, { messageId: previousMessageId }, { upsert: true });
-          console.log('Saved new message ID to database:', previousMessageId);
+          console.log('save id pesan kedalam database:', previousMessageId);
         } catch (error) {
-          console.error('Error saving new message ID to database:', error);
+          console.error('gagal save id pesan ke dalam database:', error);
         }
       } else {
-        console.log('No products found in the database.');
+        console.log('produk tidak di temukan di database');
       }
     } catch (error) {
-      console.error('Error sending stock message:', error);
+      console.error('gagal mengirim stok:', error);
     }
 
     purchaseEmitter.on('purchase', () => {
@@ -57,16 +57,16 @@ module.exports = {
 
             try {
               await PreviousMessageId.findOneAndUpdate({}, { messageId: previousMessageId }, { upsert: true });
-              console.log('Saved new message ID to database:', previousMessageId);
+              console.log('save id pesan baru kedalam database:', previousMessageId);
             } catch (error) {
-              console.error('Error saving new message ID to database:', error);
+              console.error('gagal save id pesan baru ke dalam database:', error);
             }
           } else {
-            console.log('No products found in the database.');
+            console.log('produk tidak ditemukan di database.');
           }
         });
       } catch (error) {
-        console.error('Error sending stock message:', error);
+        console.error('gagal mengirim pesan stok:', error);
       }
     });
   },

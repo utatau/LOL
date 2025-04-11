@@ -11,7 +11,7 @@ module.exports = {
     }
 
     if (args.length !== 5) {
-      return message.reply(`Usage: ${prefix}addproduct <name> <code> <price> <type [yes, no ,df, "yes" if script, "no" if not, and "df" if dirtfarm]> <mention-role>`);
+      return message.reply(`pake: ${prefix}addproduct <name> <kode> <harga> <type [yes, no ,df, "yes" kalo script, "no" kalau tidak, dan "df" kalo dirtfarm]> <mention-role>`);
     }
 
     const [name, code, price, type, roleToadd] = args;
@@ -20,7 +20,7 @@ module.exports = {
       const existingProduct = await Product.findOne({ code });
 
       if (existingProduct) {
-        return message.reply('A product with this code already exists.');
+        return message.reply('produk dengan kode ini sudah ada');
       }
 
       const newProduct = new Product({
@@ -36,7 +36,7 @@ module.exports = {
       await newProduct.save();
       purchaseEmitter.emit('purchase');
 
-      return message.reply('Product added successfully.');
+      return message.reply('produk berhasil di tambahkan');
     } catch (error) {
       console.error('Error:', error);
       return message.reply('Something went wrong.');

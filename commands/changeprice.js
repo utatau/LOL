@@ -12,21 +12,21 @@ module.exports = {
     }
 
     if (args.length < 2) {
-      return message.reply('Please provide a product code and the new price.');
+      return message.reply('masukan kode produk untuk mengubah harganya');
     }
 
     const code = args[0];
     const newPrice = parseFloat(args[1]);
 
     if (isNaN(newPrice) || newPrice <= 0) {
-      return message.reply('Please provide a valid price greater than 0.');
+      return message.reply('masukin angka yang valid dong jangan 0 juga');
     }
 
     try {
       const product = await Product.findOne({ code });
 
       if (!product) {
-        return message.reply('This product does not exist.');
+        return message.reply('produk ini gaada');
       }
 
       product.price = newPrice;
@@ -38,7 +38,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor('#0099ff')
-            .setDescription(`The price of product **${code}** has been changed to **${newPrice}**.`)
+            .setDescription(`harga produk dari kode **${code}** di ganti menjadi **${newPrice}**.`)
         ]
       });
     } catch (error) {

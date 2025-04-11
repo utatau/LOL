@@ -11,7 +11,7 @@ module.exports = {
       return message.reply('You do not have permission to use this command.');
     }
     if (args.length < 1) {
-      return message.reply('Please provide the product code to remove.');
+      return message.reply('masukan kode produk untuk di hapus');
     }
 
     const productCode = args[0];
@@ -20,7 +20,7 @@ module.exports = {
       const product = await Product.findOne({ code: productCode });
 
       if (!product) {
-        return message.reply('This product does not exist.');
+        return message.reply('produk ini tidak di temukan');
       }
 
       const productName = product.name;
@@ -39,7 +39,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor('#0099ff')
-            .setDescription(`Successfully removed the product **${productName}** from the database.`),
+            .setDescription(`berhasil menghapus produk **${productName}** dari database`),
         ],
       });
     } catch (error) {

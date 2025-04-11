@@ -13,11 +13,11 @@ module.exports = {
     }
 
     if (!userMention) {
-      return message.reply('Please mention a user to add balance to.');
+      return message.reply('tag orang yang mau di tambahin');
     }
 
     if (args.length < 2 || isNaN(args[1])) {
-      return message.reply('Please provide a valid amount to add.');
+      return message.reply('masukkan angka yang valid');
     }
 
     const amountToAdd = parseFloat(args[1]);
@@ -26,13 +26,13 @@ module.exports = {
       const user = await User.findOne({ discordId: userMention.id });
 
       if (!user) {
-        return message.reply('User not found in the database.');
+        return message.reply('data user gaada di database');
       }
 
       user.balance += amountToAdd;
       await user.save();
 
-      return message.reply(`Added **${amountToAdd}** to ${userMention.tag}'s balance.\nNew balance: **${user.balance}**<:worldlock1:1152549532756885624>`);
+      return message.reply(`menambahkan **${amountToAdd}** ke ${userMention.tag}saldo.\nSaldo terkini: **${user.balance}**<:worldlock1:1152549532756885624>`);
     } catch (error) {
       console.error('Error:', error);
       return message.reply('Something went wrong.');

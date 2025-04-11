@@ -1,7 +1,7 @@
 name: CD
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.HOST }}
-          username: linuxserver.io
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PASSWORD }}
           port: 22
           script: |

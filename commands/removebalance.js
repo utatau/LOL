@@ -14,11 +14,11 @@ module.exports = {
     }
 
     if (!userMention) {
-      return message.reply('Please mention a user to remove balance from.');
+      return message.reply('tag orang yang mau di hapus saldonya');
     }
 
     if (args.length < 2 || isNaN(args[1])) {
-      return message.reply('Please provide a valid amount to remove.');
+      return message.reply('masukan jumlah yang valid');
     }
 
     const amountToRemove = parseFloat(args[1]);
@@ -27,11 +27,11 @@ module.exports = {
       const user = await User.findOne({ discordId: userMention.id });
 
       if (!user) {
-        return message.reply('User not found in the database.');
+        return message.reply('data user gaada di dalam database');
       }
 
       if (user.balance < amountToRemove) {
-        return message.reply(`User ${userMention.tag} does not have enough balance to remove ${amountToRemove}.`);
+        return message.reply(`user ${userMention.tag} tidak memiliki saldo yang cukup untuk menghapus ${amountToRemove}.`);
       }
 
       user.balance -= amountToRemove;
@@ -41,7 +41,7 @@ module.exports = {
         embeds: [
           new EmbedBuilder()
             .setColor('#0099ff')
-            .setDescription(`Removed **${amountToRemove}**<:worldlock1:1279417930521645070> from ${userMention.tag}'s balance.\nNew balance: **${user.balance}**<:worldlock1:1279417930521645070>`)
+            .setDescription(`menghapus **${amountToRemove}**<:worldlock1:1279417930521645070> dari ${userMention.tag}saldo.\nSaldo terkini: **${user.balance}**<:worldlock1:1279417930521645070>`)
         ]
       });
     } catch (error) {
